@@ -166,4 +166,4 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType {
  white-space: pre-wrap;
 }
 </style>
-<style src='highlightjs/styles/github-gist.css'></style>
+<style src='highlight.js/styles/github-gist.css'></style>
