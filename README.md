@@ -1,5 +1,8 @@
 # swift-vmtype-maker
 
+## GitHub Pages
+https://fuziki.github.io/swift-vmtype-maker/
+
 ## Project setup
 ```
 npm install
