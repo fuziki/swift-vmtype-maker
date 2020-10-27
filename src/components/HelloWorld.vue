@@ -48,15 +48,19 @@ protocol {{NAME}}ModelInputs {
 }
 protocol {{NAME}}ModelOutputs {
 }
-protocol {{NAME}}ModelType: {{NAME}}ModelInputs, {{NAME}}ModelOutputs {
+protocol {{NAME}}ModelType {
     var inputs: {{NAME}}ModelInputs { get }
     var outputs: {{NAME}}ModelOutputs { get }
 }
-extension {{NAME}}ModelType {
+extension {{NAME}}ModelType where Self: {{NAME}}ModelInputs {
     var inputs: {{NAME}}ModelInputs { self }
+}
+extension {{NAME}}ModelType where Self: {{NAME}}ModelOutputs {
     var outputs: {{NAME}}ModelOutputs { self }
 }
-class Default{{NAME}}Model: {{NAME}}ModelType {
+class Default{{NAME}}Model: {{NAME}}ModelType,
+                                {{NAME}}ModelInputs,
+                                {{NAME}}ModelOutputs {
 }
 class {{NAME}}Controller: UIViewController {
     private var viewModel: {{NAME}}ModelType?
@@ -76,7 +80,9 @@ struct {{NAME}}_Previews: PreviewProvider {
         })
     }
 }
-class Mocked{{NAME}}Model: {{NAME}}ModelType {
+class Mocked{{NAME}}Model: {{NAME}}ModelType,
+                               {{NAME}}ModelInputs,
+                               {{NAME}}ModelOutputs {
 }
 
 //struct ViewControllerPreviewView<T: UIViewController>: UIViewControllerRepresentable {
@@ -91,6 +97,7 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType {
 `;
       } else {
         template = `
+
 import SwiftUI
 
 protocol {{NAME}}ModelInputs {
@@ -99,20 +106,25 @@ protocol {{NAME}}ModelOutputs {
 }
 protocol {{NAME}}ModelBindings {
 }
-protocol {{NAME}}ModelType: ObservableObject,
-                            {{NAME}}ModelInputs,
-                            {{NAME}}ModelOutputs,
-                            {{NAME}}ModelBindings {
+protocol {{NAME}}ModelType: ObservableObject {
     var inputs: {{NAME}}ModelInputs { get }
     var outputs: {{NAME}}ModelOutputs { get }
     var bindings: {{NAME}}ModelBindings { get set }
 }
-extension {{NAME}}ModelType {
+extension {{NAME}}ModelType where Self: {{NAME}}ModelInputs {
     var inputs: {{NAME}}ModelInputs { self }
+}
+extension {{NAME}}ModelType where Self: {{NAME}}ModelOutputs {
     var outputs: {{NAME}}ModelOutputs { self }
+}
+extension {{NAME}}ModelType where Self: {{NAME}}ModelBindings {
     var bindings: {{NAME}}ModelBindings { get { self } set { } }
 }
-class Default{{NAME}}Model: {{NAME}}ModelType {
+
+class Default{{NAME}}Model: {{NAME}}ModelType,
+                                {{NAME}}ModelInputs,
+                                {{NAME}}ModelOutputs,
+                                {{NAME}}ModelBindings {
 }
 struct {{NAME}}<ViewModelType: {{NAME}}ModelType>: View {
     let viewModel: ViewModelType
@@ -125,7 +137,10 @@ struct {{NAME}}_Previews: PreviewProvider {
         {{NAME}}(viewModel: Mocked{{NAME}}Model())
     }
 }
-class Mocked{{NAME}}Model: {{NAME}}ModelType {
+class Mocked{{NAME}}Model: {{NAME}}ModelType,
+                               {{NAME}}ModelInputs,
+                               {{NAME}}ModelOutputs,
+                               {{NAME}}ModelBindings {
 }
 `;
       }
