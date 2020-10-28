@@ -6,7 +6,7 @@
     </label>
     <p>View Name: <input type="text" :placeholder="placeholderName" @input="onChangeInput"><br></p>
     <button v-on:click="copyToClipboard()">Copy to Clipboard</button>
-    <br><br>
+    <br>
     <div class="centering-block">
       <div class="centering-block-inner" v-html="generatedHighlightCode"></div>
     </div>
@@ -178,6 +178,7 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
  text-align: left;
  display: inline-block;
  white-space: pre-wrap;
+ margin-bottom: 64px;
 }
 </style>
 <style src='highlight.js/styles/github-gist.css'></style>
