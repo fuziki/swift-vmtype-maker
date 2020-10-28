@@ -5,7 +5,7 @@
       <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
     </label>
     <p>View Name: <input type="text" :placeholder="placeholderName" @input="onChangeInput"><br></p>
-    <button v-on:click="copyToClipboard()">copy to clipboard</button>
+    <button v-on:click="copyToClipboard()">Copy to Clipboard</button>
     <br><br>
     <div class="centering-block">
       <div class="centering-block-inner" v-html="generatedHighlightCode"></div>
@@ -97,7 +97,6 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 `;
       } else {
         template = `
-
 import SwiftUI
 
 protocol {{NAME}}ModelInputs {
