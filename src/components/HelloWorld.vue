@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <p><img alt="Vue logo" src="../assets/icon_100.png"></p>
     <label>
       <label><input type="radio" v-model="selectionFramework" value="SwiftUI">SwiftUI</label>
       <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
@@ -171,10 +172,16 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 </script>
 
 <style>
+.hello {
+  display: inline-block;
+  padding: 16px;
+  border-radius: 16px;
+  border: 2px solid #cccccc;
+  margin-bottom: 32px;
+}
 .centering-block {
  text-align: center;
  margin-top: 32px;
- margin-bottom: 32px;
 }
 .centering-block .centering-block-inner {
  text-align: left;

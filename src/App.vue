@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/icon_100.png">
-    <HelloWorld/>   
+    <HelloWorld/>
     <v-footer>
       <Footer/>
     </v-footer>
