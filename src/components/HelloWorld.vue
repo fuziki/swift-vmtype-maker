@@ -4,7 +4,7 @@
       <label><input type="radio" v-model="selectionFramework" value="SwiftUI">SwiftUI</label>
       <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
     </label>
-    <p>View Name: <input type="text" :placeholder="placeholderName" @input="onChangeInput"><br></p>
+    <p>View Name: <input type="text" :placeholder="placeholderName" :style="{width: reactiveWidth}" @input="onChangeInput"><br></p>
     <button v-on:click="copyToClipboard()">Copy to Clipboard</button>
     <br>
     <div class="centering-block">
@@ -19,6 +19,7 @@ import hljs from 'highlight.js';
 export default {
    data: function () {
     return {
+      reactiveWidth: "25ch",
       selectionFramework: "SwiftUI",
       currentName: "HogeHogeView",
       placeholderName: "HogeHogeView",
@@ -153,6 +154,11 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
       this.currentName = event.target.value;
       this.generatedCode = this.generateCode(this.currentName, this.selectionFramework);
       this.generatedHighlightCode = this.highlight(this.generatedCode);
+      if(event.target.value.length > 15) {
+        this.reactiveWidth = (event.target.value.length + 10) + "ch"
+      } else {
+        this.reactiveWidth = "25ch"
+      }
     },
     copyToClipboard() {
       const copyString = this.generatedCode
