@@ -26,9 +26,8 @@ jobs:
           node-version: 'v15.0.1'
 
       - name: Install Dependencies
-        run: |
-          npm install
-          npm run build
+      - run: npm install
+      - run: npm run build          
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
