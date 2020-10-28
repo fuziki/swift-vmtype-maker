@@ -41,8 +41,8 @@ export default {
     generateCode(name, framework) {
       var template = ""
       if(framework=="UIKit") {
-        template = `
-import UIKit
+        template = 
+`import UIKit
 
 protocol {{NAME}}ModelInputs {
 }
@@ -96,8 +96,8 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 //}
 `;
       } else {
-        template = `
-import SwiftUI
+        template = 
+`import SwiftUI
 
 protocol {{NAME}}ModelInputs {
 }
@@ -173,12 +173,16 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 <style>
 .centering-block {
  text-align: center;
+ margin-top: 32px;
+ margin-bottom: 32px;
 }
 .centering-block .centering-block-inner {
  text-align: left;
  display: inline-block;
  white-space: pre-wrap;
- margin-bottom: 64px;
+ padding: 32px;
+ border-radius: 16px;
+ border: 2px solid #cccccc;
 }
 </style>
 <style src='highlight.js/styles/github-gist.css'></style>
