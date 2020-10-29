@@ -5,10 +5,13 @@
       <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
     </label>
     <p>View Name: <input type="text" :placeholder="placeholderName" :style="{width: reactiveWidth}" @input="onChangeInput"><br></p>
-    <button v-on:click="copyToClipboard()">Copy to Clipboard</button>
-    <br>
+    <button class="copy-button" v-on:click="copyToClipboard()">Copy to Clipboard</button>
     <div class="centering-block">
-      <div class="centering-block-inner" v-html="generatedHighlightCode"></div>
+      <div class="centering-block-inner">
+        <label class="swift-file">{{currentName}}.swift</label>
+        <hr class="hr-line">
+        <div v-html="generatedHighlightCode"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -177,18 +180,35 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 </script>
 
 <style>
+.swift-file {
+  font-size: 16px;
+  font-weight: bold;
+}
+.hr-line {
+  border: #FB8C00 1px solid;
+  margin: 8px -32px 16px -32px;
+}
+.copy-button {
+  border-radius: 1000px;
+  border: 2px solid #FB8C00;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 32px;
+  color: #FB8C00;
+  background-color: #FFFFFF;
+}
 .centering-block {
  text-align: center;
- margin-top: 32px;
+ margin-top: 16px;
  margin-bottom: 32px;
 }
 .centering-block .centering-block-inner {
  text-align: left;
  display: inline-block;
  white-space: pre-wrap;
- padding: 32px;
+ padding: 16px 32px;
  border-radius: 16px;
- border: 2px solid #cccccc;
+ border: 2px solid #FB8C00;
 }
 </style>
 <style src='highlight.js/styles/github-gist.css'></style>
