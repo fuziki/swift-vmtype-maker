@@ -1,10 +1,16 @@
 <template>
   <div class="hello">
-    <label>
-      <label><input type="radio" v-model="selectionFramework" value="SwiftUI">SwiftUI</label>
-      <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
-    </label>
-    <p>View Name: <input type="text" :placeholder="placeholderName" :style="{width: reactiveWidth}" @input="onChangeInput"><br></p>
+    <div class="config-panel" :style="{width: reactiveWidth}">
+      <label>
+        <label><input type="radio" v-model="selectionFramework" value="SwiftUI">SwiftUI</label>
+        <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
+      </label>
+      <div class="view-name">
+        <label class="view-name-input-title">View Name</label>
+        <input id="view-name-input" type="text" :placeholder="placeholderName" @input="onChangeInput">
+        <div class="text_underline"></div>
+      </div>
+    </div>
     <button class="copy-button" v-on:click="copyToClipboard()">Copy to Clipboard</button>
     <div class="centering-block">
       <div class="centering-block-inner">
@@ -180,6 +186,56 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 </script>
 
 <style>
+.config-panel {
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.view-name {
+  margin-top: 8px;
+  padding: 0px 4px 0px 4px;
+  background-color: #FFF3E0;
+  color: #455A64;
+}
+.view-name-input-title {
+  margin-left: 4px;
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+  font-size: 14px;
+}
+#view-name-input {
+	font-size: 16px;
+	width: 100%;
+	border: none;
+	outline: none;
+	padding-bottom: 4px;
+  background-color: #FFF3E0;
+}
+.text_underline {
+	position: relative;
+	border-top: 2px solid #546E7A;
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.text_underline::before,
+.text_underline::after{
+	position: absolute; 
+	bottom: 0px;
+	width: 0px;
+	height: 2px;
+	content: '';
+	background-color: #FB8C00;
+  left: 0px;
+}
+#view-name-input:focus + .text_underline::after {
+	width: 100%;
+}
+
 .swift-file {
   font-size: 16px;
   font-weight: bold;
