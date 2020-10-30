@@ -250,10 +250,11 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
   text-align: left;
   display: inline-block;
   width: 100%;
-  font-size: 14px;
+  font-size: 12px;
 }
 #view-name-input {
 	font-size: 16px;
+  font-weight: bold;
 	width: 100%;
 	border: none;
 	outline: none;
