@@ -13,6 +13,10 @@
         <div class="text_underline"></div>
       </div>
     </div>
+    <div class="name-validation">
+      <div v-if="showValidationNotClphanumeric"><label>Type name should only contain alphanumeric characters.</label></div>
+      <div v-if="showValidationStartLower"><label>Type name should start with an uppercase character.</label></div>
+    </div>
     <button class="copy-button" v-on:click="copyToClipboard()">Copy to Clipboard</button>
     <div class="centering-block">
       <div class="centering-block-inner">
@@ -30,6 +34,8 @@ import hljs from 'highlight.js';
 export default {
    data: function () {
     return {
+      showValidationNotClphanumeric: false,
+      showValidationStartLower: false,
       reactiveWidth: "25ch",
       selectionFramework: "SwiftUI",
       currentName: "HogeHogeView",
@@ -170,6 +176,18 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
       } else {
         this.reactiveWidth = "25ch"
       }
+      var result = this.currentName.match("^[^A-Z]");
+      if (result != null && result.length > 0) {
+        this.showValidationStartLower = true;
+      } else {
+        this.showValidationStartLower = false;
+      }
+      result = this.currentName.match("[^A-Z^a-z]+");
+      if (result != null && result.length > 0) {
+        this.showValidationNotClphanumeric = true;
+      } else {
+        this.showValidationNotClphanumeric = false;
+      }
     },
     copyToClipboard() {
       const copyString = this.generatedCode
@@ -220,7 +238,6 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
   margin-right: auto;
   margin-left: auto;
   margin-top: 16px;
-  margin-bottom: 16px;
 }
 .view-name {
   margin-top: 16px;
@@ -263,7 +280,11 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 #view-name-input:focus + .text_underline::after {
 	width: 100%;
 }
-
+.name-validation {
+  color: red;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
 .swift-file {
   font-size: 16px;
   font-weight: bold;
