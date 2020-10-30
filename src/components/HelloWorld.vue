@@ -1,10 +1,12 @@
 <template>
   <div class="hello">
+    <div><br>
+      <span class="segmented">
+        <label><input type="radio" v-model="selectionFramework" value="SwiftUI"><span class="segmented-button">SwiftUI</span></label>
+        <label><input type="radio" v-model="selectionFramework" value="UIKit"><span class="segmented-button"> UIKit </span></label>
+      </span>
+    </div>
     <div class="config-panel" :style="{width: reactiveWidth}">
-      <label>
-        <label><input type="radio" v-model="selectionFramework" value="SwiftUI">SwiftUI</label>
-        <label><input type="radio" v-model="selectionFramework" value="UIKit">UIKit</label>
-      </label>
       <div class="view-name">
         <label class="view-name-input-title">View Name</label>
         <input id="view-name-input" type="text" :placeholder="placeholderName" @input="onChangeInput">
@@ -186,6 +188,32 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
 </script>
 
 <style>
+.segmented {
+  margin-top: 64px;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 4px;
+  background-color: #FFF3E0;
+  border-radius: 8px;
+  width: 100%;
+}
+.segmented input {
+  display: none;
+}
+.segmented-button {
+  color: #757575;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 48px 2px 48px;
+  border-radius: 4px;
+}
+.segmented input:checked + .segmented-button {
+  background-color: #FFF;
+  color: #FB8C00;
+  box-shadow:0px 0px 2px #FB8C00;
+}
 .config-panel {
   right: 0;
   left: 0;
@@ -195,7 +223,7 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
   margin-bottom: 16px;
 }
 .view-name {
-  margin-top: 8px;
+  margin-top: 16px;
   padding: 0px 4px 0px 4px;
   background-color: #FFF3E0;
   color: #455A64;
