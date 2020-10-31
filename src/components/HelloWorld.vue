@@ -9,11 +9,12 @@
     <div class="config-panel" :style="{width: reactiveWidth}">
       <div class="view-name">
         <label class="view-name-input-title">View Name</label>
-        <input id="view-name-input" type="text" :placeholder="placeholderName" @input="onChangeInput">
+        <input id="view-name-input" type="text" :placeholder="placeholderName" @input="onChangeInput" @change="onChangeValue">
         <div class="text_underline"></div>
       </div>
     </div>
     <div class="name-validation">
+      <div v-if="showValidationTypo"><label>Typo? {{showValidationTypoWords}}</label></div>
       <div v-if="showValidationNotClphanumeric"><label>Type name should only contain alphanumeric characters.</label></div>
       <div v-if="showValidationStartLower"><label>Type name should start with an uppercase character.</label></div>
     </div>
@@ -34,6 +35,9 @@ import hljs from 'highlight.js';
 export default {
    data: function () {
     return {
+      typoCheker: null,
+      showValidationTypo: false,
+      showValidationTypoWords: "",
       showValidationNotClphanumeric: false,
       showValidationStartLower: false,
       reactiveWidth: "25ch",
@@ -167,6 +171,39 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
       template = template.replace(/{{NAME}}/g, name);
       return template;
     },
+    onChangeValue(event) {
+      console.log("onChangeValue", event);
+      if (this.typoCheker == null) {
+        var Typo = require("typo-js");
+        this.typoCheker = new Typo("en_US", false, false, { dictionaryPath: "typo/dictionaries"});
+      }
+      var words = [];
+      var pattern = /([A-Z][a-z]+)/g;
+      var match = pattern.exec(event.target.value);
+      do {
+        words.push(match[1])
+      } while((match = pattern.exec(event.target.value)) !== null);
+      var invaliedWords = [];
+      for(var i = 0; i < words.length; i++) {
+        const check = this.typoCheker.check(words[i]);
+        if (!check) {
+          invaliedWords.push(words[i]);
+        }
+      }
+      if(invaliedWords.length > 0) {
+        this.showValidationTypo = true;
+        this.showValidationTypoWords = "";
+        for(var k = 0; k < invaliedWords.length; k++) {
+          if(this.showValidationTypoWords != "") {
+            this.showValidationTypoWords += ",";
+          }
+          this.showValidationTypoWords += invaliedWords[k];
+        }
+      } else {
+        this.showValidationTypo = false;
+      }
+      console.log(words, invaliedWords);
+    },
     onChangeInput(event) {
       this.currentName = event.target.value;
       this.generatedCode = this.generateCode(this.currentName, this.selectionFramework);
@@ -188,6 +225,7 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
       } else {
         this.showValidationNotClphanumeric = false;
       }
+      this.showValidationTypo = false;
     },
     copyToClipboard() {
       const copyString = this.generatedCode
