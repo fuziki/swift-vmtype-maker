@@ -2,9 +2,9 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/icon_100.png">
     <HelloWorld/>   
-    <v-footer>
+    <footer>
       <Footer/>
-    </v-footer>
+    </footer>
   </div>
 </template>
 

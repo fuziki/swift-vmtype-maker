@@ -33,6 +33,13 @@
 import hljs from 'highlight.js';
 
 export default {
+  created() {
+    window.addEventListener('keydown', this.keyboardEvent);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.keyboardEvent);
+  },
+
    data: function () {
     return {
       typoCheker: null,
@@ -57,6 +64,14 @@ export default {
     }
   },
   methods: {
+    keyboardEvent(event) {
+      if (event.metaKey ){
+        if (event.keyCode == 83){
+          event.preventDefault();
+          this.copyToClipboard();
+        }
+      }
+    },
     highlight(code) {
       return hljs.highlightAuto(code, ["swift"]).value;
     },
