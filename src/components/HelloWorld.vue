@@ -171,7 +171,10 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
       template = template.replace(/{{NAME}}/g, name);
       return template;
     },
-    onChangeValue(event) {
+    async onChangeValue(event) {
+      if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        return;
+      }
       console.log("onChangeValue", event);
       if (this.typoCheker == null) {
         var Typo = require("typo-js");
@@ -185,7 +188,7 @@ class Mocked{{NAME}}Model: {{NAME}}ModelType,
       } while((match = pattern.exec(event.target.value)) !== null);
       var invaliedWords = [];
       for(var i = 0; i < words.length; i++) {
-        const check = this.typoCheker.check(words[i]);
+        const check = await this.typoCheker.check(words[i]);
         if (!check) {
           invaliedWords.push(words[i]);
         }
