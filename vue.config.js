@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath: './',
+    publicPath: '/swift-vmtype-maker',
     outputDir: 'docs/',
 }
